@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="//cdn.jsdelivr.net/npm/phaser@3.11.0/dist/phaser.js"></script>
+    <title>Aventure Snake</title>
+</head>
+<body>
+    <script>
+        var config = {
+    type: Phaser.AUTO,
+    width: 640,
+    height: 640,
+    physics: {
+        default: 'arcade',
+        arcade: {
+            gravity: { y: 0 },
+            debug: false
+        }
+    },
+    scene: {
+        preload: preload,
+        create: create,
+        update: update
+
+    }
+   };
+
+var game = new Phaser.Game(config);
+
+function preload ()
+{
+    this.load.image("solrocher","/a7/solrocher.png");
+    this.load.image("solrocherherbe","/a7/solrocherherbe.png");
+    this.load.image("sol","/a7/sol.png");
+    this.load.spritesheet("Bout","/a7/Bout.png" ,{ frameWidth: 32, frameHeight: 32 }); 
+    this.load.spritesheet( "Corps","/a7/Corps.png" ,{ frameWidth: 32, frameHeight: 32 });
+    this.load.spritesheet( "Tete","/a7/Tete.png" , { frameWidth: 32, frameHeight: 32 });
+    this.load.image("pomme","/a7/pomme.png");
+}
+
+function create ()
+{
+
+for(let j = 0; j < 20; j++){
+    for(let i=0; i<20;i++){
+    this.add.image(16+i*32,16 + j*32, "sol")
+    }
+}
+
+serpent = this.physics.add.sprite(32, 32, "Tete");
+
+/*serpent.setBounce(0.2);
+serpent.setCollideWorldBounds(true);
+
+stars = this.physics.add.group({
+    key: "pomme",
+    repeat: 11,
+    setXY: { x: 12, y: 0, stepX: 70 }
+});
+stars.children.iterate(function (child) {
+
+child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
+this.physics.add.overlap(serpent, pomme, collectPomme, null, this);
+function collectPomme (serpent, pomme)
+{
+    pomme.disableBody(true, true);
+}
+
+});*/
+
+
+}
+var speedY = 50;
+var speedX = 0;
+function update ()
+{
+    serpent.setVelocityY(speedY);
+    serpent.setVelocityX(speedX);
+
+    cursors = this.input.keyboard.createCursorKeys();
+    if (cursors.left.isDown){
+        speedY = 0;
+        speedX = -50;
+    }
+    if (cursors.right.isDown){
+        speedY = 0;
+        speedX = 50;
+    }
+    if (cursors.up.isDown){
+        speedY = -50;
+        speedX = 0;
+    }
+    if (cursors.down.isDown){
+        speedY = 50;
+        speedX = 0;
+    }
+
+
+}
+    </script>
+</body>
+</html>
